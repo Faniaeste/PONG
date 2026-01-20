@@ -28,7 +28,17 @@ class Pelota:
         self.pos_y = posy
         self.color = color
         self.radio = radio
+        self.vx = 1
+        self.vy = 1
         
         
     def dibujar(self,screen):
         pg.draw.circle(screen, self.color,(self.pos_x,self.pos_y), self.radio)
+
+    def mover(self,xmax,ymax):
+        self.pos_x = self.pos_x + self.vx
+        self.pos_y = self.pos_y - self.vy
+        if self.pos_x >= xmax or self.pos_x <= 0:
+            self.vx = self.vx * -1
+        if self.pos_y >= ymax or self.pos_y <=0:
+            self.vy = self.vy * -1

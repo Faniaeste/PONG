@@ -27,15 +27,9 @@ while game_over:
     for eventos in pg.event.get():
         if eventos.type == pg.QUIT:
             game_over = False
-    """
-    #capturar evento del teclado arriba
-    teclado = pg.key.get_pressed()
-    #print("teclado: ",teclado[pg.K_UP])
-    if teclado[pg.K_UP] == True:
-        raqueta1.pos_y = raqueta1.pos_y - 1
-    if teclado[pg.K_DOWN] == True:
-        raqueta1.pos_y = raqueta1.pos_y + 1
-    """
+
+    
+    pelota.mover(800,600)
 
     pantalla_principal.fill( (35,78,198) )
     pg.draw.line( pantalla_principal,(255, 255, 255),(400,0),(400,600), width = 10 )
