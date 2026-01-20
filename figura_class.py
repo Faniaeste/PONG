@@ -12,6 +12,15 @@ class Raqueta:
     def dibujar(self, screen):
         pg.draw.rect( screen, self.color, (self.pos_x - (self.w),(self.pos_y - self.h // 2), self.w, self.h) )
 
+    def mover(self,teclado_arriba, teclado_abajo):
+        #capturar evento del teclado arriba
+        teclado = pg.key.get_pressed()
+        #print("teclado: ",teclado[pg.K_UP])
+        if teclado[teclado_arriba] == True and self.pos_y >= 0 + (self.h//2):
+            self.pos_y = self.pos_y - 1
+        if teclado[teclado_abajo] == True and self.pos_y <= 600 - (self.h//2):
+         self.pos_y = self.pos_y + 1
+
 #
 class Pelota:
     def __init__(self,posx,posy,color = (255, 255, 255), radio = 20):
