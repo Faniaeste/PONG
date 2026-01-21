@@ -40,6 +40,8 @@ while game_over:
 
     raqueta1.mover(pg.K_w,pg.K_s)
     raqueta2.mover(pg.K_UP,pg.K_DOWN)
+    print(pelota.contadorIzquierdo)
+    print(pelota.contadorDerecho)
     pg.display.flip()
 
 

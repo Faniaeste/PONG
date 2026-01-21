@@ -30,7 +30,8 @@ class Pelota:
         self.radio = radio
         self.vx = 1
         self.vy = 1
-        
+        self.contadorDerecho = 0
+        self.contadorIzquierdo = 0
         
     def dibujar(self,screen):
         pg.draw.circle(screen, self.color,(self.pos_x,self.pos_y), self.radio)
@@ -38,7 +39,17 @@ class Pelota:
     def mover(self,xmax,ymax):
         self.pos_x = self.pos_x + self.vx
         self.pos_y = self.pos_y - self.vy
-        if self.pos_x >= xmax or self.pos_x <= 0:
+            
+
+            #limite derecho
+        if self.pos_x >= xmax + (8*self.radio):
             self.vx = self.vx * -1
-        if self.pos_y >= ymax or self.pos_y <=0:
+            self.contadorIzquierdo += 1
+
+            #limite izquierdo
+        if self.pos_x <= 0 - (8*self.radio):
+            self.vx = self.vx * -1
+            self.contadorDerecho += 1
+
+        if self.pos_y >= ymax - (self.radio) or self.pos_y <=0:
             self.vy = self.vy * -1
