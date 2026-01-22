@@ -20,6 +20,20 @@ class Raqueta:
             self.pos_y = self.pos_y - 1
         if teclado[teclado_abajo] == True and self.pos_y <= 600 - (self.h//2):
          self.pos_y = self.pos_y + 1
+    @property
+    def p_derecho(self):
+        return self.pos_x + (self.w//2)
+    @property  
+    def p_izquierdo(self):
+        return self.pos_x - (self.w//2)
+    @property
+    def p_arriba(self):
+        return self.pos_y - (self.h//2)
+    @property
+    def p_abajo(self):
+        return self.pos_y + (self.h//2)
+
+
 
 #
 class Pelota:
@@ -45,6 +59,7 @@ class Pelota:
         if self.pos_x >= xmax + (8*self.radio):
             self.vx = self.vx * -1
             self.contadorIzquierdo += 1
+            
 
             #limite izquierdo
         if self.pos_x <= 0 - (8*self.radio):
@@ -53,3 +68,53 @@ class Pelota:
 
         if self.pos_y >= ymax - (self.radio) or self.pos_y <=0:
             self.vy = self.vy * -1
+
+    @property
+    def p_derecho(self):
+             return self.pos_x + self.radio
+    @property  
+    def p_izquierdo(self):
+        return self.pos_x - self.radio
+    @property
+    def p_arriba(self):
+        return self.pos_y - self.radio
+    @property
+    def p_abajo(self):
+        return self.pos_y + self.radio
+    
+    def comprobar_choque(self,r1,r2):
+        #Logica de choque
+        if self.p_derecho >= r2.p_izquierdo and\
+            self.p_arriba <= r2.p_abajo and\
+            self.p_abajo >= r2.p_arriba:
+            self.vx = self.vx * -1
+        if self.p_izquierdo <= r1.p_derecho and\
+            self.p_arriba <= r1.p_abajo and\
+            self.p_abajo >= r1.p_arriba:
+            self.vx = self.vx * -1
+
+    def comprobar_choqueV2(self,*raquetas):
+        for r in raquetas:
+            if self.p_derecho >= r.p_izquierdo and\
+                self.p_izquierdo <= r.p_derecho and\
+                self.p_arriba <= r.p_abajo and\
+                self.p_abajo >= r.p_arriba:
+                self.vx = self.vx * -1
+
+    def mostrar_marcador(self, pantalla):
+        #Asignación de fuente y tamaño de letra
+        marcador_font = pg.font.SysFont("verdana", 30)
+        #Asiganción de color y texto
+        marcador1 = marcador_font.render(str(self.contadorIzquierdo),True,(255, 255, 255))
+        marcador2 = marcador_font.render(str(self.contadorDerecho),True,(255, 255, 255))
+        jugador1 = marcador_font.render("Jugador 1",True,(255, 255, 255))
+        jugador2 = marcador_font.render("Jugador 2",True,(255, 255, 255))
+        #mostrar el texto definido y la posición x, y donde se mostraran
+        pantalla.blit(marcador1,(320,50))
+        pantalla.blit(marcador2, (450,50))
+        pantalla.blit(jugador1, (280,10))
+        pantalla.blit(jugador2, (420,10))
+
+   
+
+    
