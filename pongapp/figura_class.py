@@ -1,7 +1,8 @@
 import pygame as pg
+from pongapp.utils import *
 
 class Raqueta:
-    def __init__(self, posx, posy, color = (255, 255, 255), w = 20, h = 120):
+    def __init__(self, posx, posy, color = COLOR_BLANCO, w = 20, h = 120):
         self.pos_x = posx
         self.pos_y = posy
         self.color = color
@@ -35,38 +36,41 @@ class Raqueta:
 
 
 
-#
+
 class Pelota:
-    def __init__(self,posx,posy,color = (255, 255, 255), radio = 20):
+    def __init__(self,posx,posy,color = COLOR_BLANCO, radio = 20):
         self.pos_x = posx
         self.pos_y = posy
         self.color = color
         self.radio = radio
         self.vx = 1
         self.vy = 1
-        self.contadorDerecho = 0
-        self.contadorIzquierdo = 0
+        
         
     def dibujar(self,screen):
         pg.draw.circle(screen, self.color,(self.pos_x,self.pos_y), self.radio)
 
-    def mover(self,xmax,ymax):
+    def mover(self,xmax = ANCHO,ymax = ALTO):
         self.pos_x = self.pos_x + self.vx
         self.pos_y = self.pos_y - self.vy
             
 
-            #limite derecho
+        #limite derecho
         if self.pos_x >= xmax + (8*self.radio):
+            self.pos_x = ANCHO//2
+            self.pos_y = ALTO//2
             self.vx = self.vx * -1
-            self.contadorIzquierdo += 1
+            return "Derecho"
             
-
             #limite izquierdo
         if self.pos_x <= 0 - (8*self.radio):
+            self.pos_x = ANCHO//2
+            self.pos_y = ANCHO//2
             self.vx = self.vx * -1
-            self.contadorDerecho += 1
+            return "Izquierdo"
+            
 
-        if self.pos_y >= ymax - (self.radio) or self.pos_y <=0:
+        if self.pos_y >= ymax - (self.radio) or self.pos_y <=0 + (self.radio):
             self.vy = self.vy * -1
 
     @property
@@ -100,21 +104,21 @@ class Pelota:
                 self.p_arriba <= r.p_abajo and\
                 self.p_abajo >= r.p_arriba:
                 self.vx = self.vx * -1
-
+    """
     def mostrar_marcador(self, pantalla):
         #Asignación de fuente y tamaño de letra
         marcador_font = pg.font.SysFont("verdana", 30)
         #Asiganción de color y texto
-        marcador1 = marcador_font.render(str(self.contadorIzquierdo),True,(255, 255, 255))
-        marcador2 = marcador_font.render(str(self.contadorDerecho),True,(255, 255, 255))
-        jugador1 = marcador_font.render("Jugador 1",True,(255, 255, 255))
-        jugador2 = marcador_font.render("Jugador 2",True,(255, 255, 255))
+        marcador1 = marcador_font.render(str(self.contadorIzquierdo),True,COLOR_BLANCO)
+        marcador2 = marcador_font.render(str(self.contadorDerecho),True,COLOR_BLANCO)
+        jugador1 = marcador_font.render("Jugador 1",True,COLOR_BLANCO)
+        jugador2 = marcador_font.render("Jugador 2",True,COLOR_BLANCO)
         #mostrar el texto definido y la posición x, y donde se mostraran
-        pantalla.blit(marcador1,(320,50))
-        pantalla.blit(marcador2, (450,50))
-        pantalla.blit(jugador1, (280,10))
-        pantalla.blit(jugador2, (420,10))
-
+        pantalla.blit(marcador1,(320,60))
+        pantalla.blit(marcador2, (450,60))
+        pantalla.blit(jugador1, (200,10))
+        pantalla.blit(jugador2, (440,10))
+    """
    
 
     

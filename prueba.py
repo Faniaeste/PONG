@@ -1,4 +1,4 @@
-from figura_class import *
+from pongapp.figura_class import *
 objRaqueta = Raqueta(0,500)
 objPelota = Pelota(0,300)
 
