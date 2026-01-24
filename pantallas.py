@@ -13,8 +13,8 @@ class Partida:
         self.pelota = Pelota(ANCHO//2,ALTO//2,color= COLOR_PELOTA)
         #self.marcador_font = pg.font.SysFont("verdana", 30)
         #self.marcador_tiempo_font = pg.font.SysFont("arial", 40)
-        self.marcador_font = pg.font.Font("pongapp/fonts/MichromaRegular.ttf",30)
-        self.marcador_tiempo_font = pg.font.Font("pongapp/fonts/MichromaRegular.ttf",30)
+        self.marcador_font = pg.font.Font(FUENTE1,30)
+        self.marcador_tiempo_font = pg.font.Font(FUENTE1,30)
         self.contadorDerecho = 0
         self.contadorIzquierdo = 0
         self.quienMarco = ""
@@ -86,9 +86,11 @@ class Partida:
         if self.contadorIzquierdo == 7:
             print(f"Gana el Jugador 1: {self.contador_izquierdo}")
             self.game_over = False
+            return "Jugador 1"
         if self.contadorDerecho == 7:
             print(f"Gana el Jugador 2 {self.contador_derecho}")
             self.game_over = False
+            return "Jugador 2"
 
         #Finalización de juego por tiempo
         if self.temporizador <= 0:
@@ -124,8 +126,8 @@ class Menu:
         self.patalla_principal = pg.display.set_mode((ANCHO,ALTO))
         pg.display.set_caption("Menú")
         self.tasa_refresco = pg.time.Clock()
-        self.imagenFondo = pg.image.load("pongapp/imagen/fondo.png")
-        self.fuente = pg.font.Font("pongapp/fonts/MichromaRegular.ttf",30)
+        self.imagenFondo = pg.image.load(FONDO_MENU)
+        self.fuente = pg.font.Font(FUENTE1,30)
 
     def bucle_pantalla(self):
         game_over = True
@@ -148,4 +150,26 @@ class Menu:
             self.patalla_principal.blit(texto_menu,(120,ALTO // 2 - 40))
 
             pg.display.flip()
+        pg.quit()
+
+class Resultado:
+    def __init__(self,resultado):
+        pg.init()
+        self.pantalla_principal = pg.display.set_mode((ANCHO,ALTO))
+        pg.display.set_caption("Resultado")
+        self.tasa_refresco = pg.time.Clock()
+        self.fuente_resultado = pg.font.Font(FUENTE1,40)
+        self.resultado = resultado
+
+    def bucle_pantalla(self):
+        game_over = True
+        while game_over:
+            for evento in pg.event.get():
+                if evento.type == pg.QUIT:
+                    game_over = False
+            self.pantalla_principal.fill(COLOR_BLANCO)
+            texto_resultado = self.fuente_resultado.render(f"El ganador es: {self.resultado}", True, COLOR_AZUL)
+            self.pantalla_principal.blit(texto_resultado,(200,ALTO//2))
+            pg.display.flip()
+
         pg.quit()

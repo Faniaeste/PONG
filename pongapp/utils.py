@@ -11,3 +11,5 @@ TIEMPO_JUEGO = 18000
 PISTA_NARAJA = (232, 138, 7)
 PISA_ROJA = (245, 39, 97)
 COLOR_NEGRO = (0, 0, 0)
+FUENTE1 = ("pongapp/fonts/MichromaRegular.ttf",30)
+FONDO_MENU = ("pongapp/imagen/fondo.png")
