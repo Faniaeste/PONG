@@ -8,11 +8,13 @@ class Partida:
         self.pantalla_principal = pg.display.set_mode( (800,600) )
         pg.display.set_caption("PONG")
         self.tasa_refresco = pg.time.Clock()
-        self.raqueta1 = Raqueta(20,ANCHO//2)
+        self.raqueta1 = Raqueta(20,ALTO//2)
         self.raqueta2 = Raqueta(ANCHO,ALTO//2)
         self.pelota = Pelota(ANCHO//2,ALTO//2,color= COLOR_PELOTA)
-        self.marcador_font = pg.font.SysFont("verdana", 30)
-        self.marcador_tiempo_font = pg.font.SysFont("arial", 40)
+        #self.marcador_font = pg.font.SysFont("verdana", 30)
+        #self.marcador_tiempo_font = pg.font.SysFont("arial", 40)
+        self.marcador_font = pg.font.Font("pongapp/fonts/MichromaRegular.ttf",30)
+        self.marcador_tiempo_font = pg.font.Font("pongapp/fonts/MichromaRegular.ttf",30)
         self.contadorDerecho = 0
         self.contadorIzquierdo = 0
         self.quienMarco = ""
@@ -108,7 +110,7 @@ class Partida:
         #LOS 5 SEGUNDOS
         else:
             if self.contadorFotograma == 80:
-                if self.colorFondo == COLOR_LILA or self.colorFondo == PISA_ROJA:
+                if self.colorFondo == COLOR_LILA or self.colorFondo == COLOR_FONDO:
                  self.colorFondo = PISA_ROJA
             else:
                 self.colorFondo = COLOR_LILA
