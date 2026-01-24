@@ -16,8 +16,10 @@ class Partida:
         self.contadorDerecho = 0
         self.contadorIzquierdo = 0
         self.quienMarco = ""
-        self.temporizador = 5000
+        self.temporizador = TIEMPO_JUEGO
         self.game_over = True
+        self.colorFondo = COLOR_LILA
+        self.contadorFotograma = 0
 
 
     def bucle_fotograma(self):
@@ -31,7 +33,7 @@ class Partida:
                     self.game_over = False
 
             self.finalizacion_juego()
-            self.fondo_juego()
+            self.pantalla_principal.fill( self.fondo_juego() )
 
           
             self.quienMarco = self.pelota.mover(ANCHO, ALTO)
@@ -69,11 +71,11 @@ class Partida:
         jugador1 = self.marcador_font.render("Jugador 1",True,COLOR_ROSA_PALO)
         jugador2 = self.marcador_font.render("Jugador 2",True,COLOR_ROSA_PALO)
         tiempo_juego = self.marcador_tiempo_font.render(f"{int(self.temporizador/1000)}",True,COLOR_AZUL)
-        self.pantalla_principal.blit(marcador1,(320,60))
-        self.pantalla_principal.blit(marcador2, (450,60))
-        self.pantalla_principal.blit(jugador1, (200,10))
-        self.pantalla_principal.blit(jugador2, (440,10))
-        self.pantalla_principal.blit(tiempo_juego,(ANCHO//2,50))
+        self.pantalla_principal.blit(marcador1,((ALTO//2)+ 20, 60))
+        self.pantalla_principal.blit(marcador2, ((ANCHO//2) + 50, 60))
+        self.pantalla_principal.blit(jugador1, ((ALTO//2) - 100, 10))
+        self.pantalla_principal.blit(jugador2, ((ALTO//2) + 140, 10))
+        self.pantalla_principal.blit(tiempo_juego,(ANCHO//2, 50))
 
         
 
@@ -92,11 +94,44 @@ class Partida:
             self.game_over = False
 
     def fondo_juego(self):
+        self.contadorFotograma += 1
+        #LOS 10 SEGUNDOS
+        if self.temporizador > 10000:
+            self.contadorFotograma = 0
+        elif self.temporizador > 5000:
+            if self.contadorFotograma == 80:
+                if self.colorFondo == COLOR_FONDO:
+                    self.colorFondo = PISTA_NARAJA
+                else:
+                    self.colorFondo = COLOR_FONDO
+                self.contadorFotograma = 0
+        #LOS 5 SEGUNDOS
+        else:
+            if self.contadorFotograma == 80:
+                if self.colorFondo == COLOR_LILA or self.colorFondo == PISA_ROJA:
+                 self.colorFondo = PISA_ROJA
+            else:
+                self.colorFondo = COLOR_LILA
+            self.contadorFotograma = 0
+
+        return self.colorFondo
+    
+        """
+        
+        self.colorFondo = PISA_ROJA
         if self.temporizador <= 10000 and self.temporizador > 5000:
-            self.pantalla_principal.fill( PISA_ROJA )
+
+            if self.colorFondo == PISTA_NARAJA:
+                self.pantalla_principal.fill( PISTA_NARAJA )
+                self.colorFondo = PISTA_NARAJA
+            elif self.colorFondo == COLOR_BLANCO:
+                self.pantalla_principal.fill(COLOR_BLANCO)
+                self.colorFondo = COLOR_BLANCO
+
+        #LOS 5 SEGUNDOS
         elif self.temporizador <= 5000:
             self.pantalla_principal.fill( PISTA_NARAJA )
         else:
             self.pantalla_principal.fill( COLOR_FONDO)
-
+"""
 
