@@ -1,4 +1,4 @@
-from pantallas import Partida,Menu
+from pantallas import *
 
 menu = Menu()
 opcion = menu.bucle_pantalla()

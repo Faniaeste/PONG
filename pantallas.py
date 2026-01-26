@@ -22,6 +22,7 @@ class Partida:
         self.game_over = True
         self.colorFondo = COLOR_LILA
         self.contadorFotograma = 0
+        self.resultado = ""
 
 
     def bucle_fotograma(self):
@@ -82,20 +83,29 @@ class Partida:
         
 
     def finalizacion_juego(self):
-        #Finalización de juego por puntaje
-        if self.contadorIzquierdo == 7:
-            print(f"Gana el Jugador 1: {self.contador_izquierdo}")
-            self.game_over = False
-            return "Jugador 1"
-        if self.contadorDerecho == 7:
-            print(f"Gana el Jugador 2 {self.contador_derecho}")
-            self.game_over = False
-            return "Jugador 2"
-
         #Finalización de juego por tiempo
         if self.temporizador <= 0:
-            print("Fin del Juego")
             self.game_over = False
+            if self.contadorIzquierdo > self.contadorDerecho:
+                self.resultado = f"Jugador 1 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
+            elif self.contadorDerecho >  self.contadorIzquierdo:
+                self.resultado = "Jugador 2 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
+            else:
+                self.resultado = "EMPATADOS! - Resultado: Jugador1 : {self.contadorDerecho}, Jugador2: {self.contadorIzquierdo}"
+
+            return self.resultado
+        #Finalización de juego por puntaje
+        if self.contadorIzquierdo == 7:
+            self.game_over = False
+            self.resultado = f"Jugador 1 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorIzquierdo}"
+            return self.resultado
+        if self.contadorDerecho == 7:
+            self.game_over = False
+            self.resultado = f"Jugador 2 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
+            return self.resultado
+
+
+        
 
     def fondo_juego(self):
         self.contadorFotograma += 1
@@ -158,7 +168,7 @@ class Resultado:
         self.pantalla_principal = pg.display.set_mode((ANCHO,ALTO))
         pg.display.set_caption("Resultado")
         self.tasa_refresco = pg.time.Clock()
-        self.fuente_resultado = pg.font.Font(FUENTE1,40)
+        self.fuente_resultado = pg.font.Font(FUENTE1,10)
         self.resultado = resultado
 
     def bucle_pantalla(self):
