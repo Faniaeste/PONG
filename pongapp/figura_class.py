@@ -45,6 +45,7 @@ class Pelota:
         self.radio = radio
         self.vx = 1
         self.vy = 1
+        self.sonido = pg.mixer.Sound("pongapp/songs/sonido2.mp3")
         
         
     def dibujar(self,screen):
@@ -104,21 +105,8 @@ class Pelota:
                 self.p_arriba <= r.p_abajo and\
                 self.p_abajo >= r.p_arriba:
                 self.vx = self.vx * -1
-    """
-    def mostrar_marcador(self, pantalla):
-        #Asignación de fuente y tamaño de letra
-        marcador_font = pg.font.SysFont("verdana", 30)
-        #Asiganción de color y texto
-        marcador1 = marcador_font.render(str(self.contadorIzquierdo),True,COLOR_BLANCO)
-        marcador2 = marcador_font.render(str(self.contadorDerecho),True,COLOR_BLANCO)
-        jugador1 = marcador_font.render("Jugador 1",True,COLOR_BLANCO)
-        jugador2 = marcador_font.render("Jugador 2",True,COLOR_BLANCO)
-        #mostrar el texto definido y la posición x, y donde se mostraran
-        pantalla.blit(marcador1,(320,60))
-        pantalla.blit(marcador2, (450,60))
-        pantalla.blit(jugador1, (200,10))
-        pantalla.blit(jugador2, (440,10))
-    """
+                pg.mixer.Sound.play(self.sonido)
+    
    
 
     

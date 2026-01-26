@@ -89,9 +89,9 @@ class Partida:
             if self.contadorIzquierdo > self.contadorDerecho:
                 self.resultado = f"Jugador 1 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
             elif self.contadorDerecho >  self.contadorIzquierdo:
-                self.resultado = "Jugador 2 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
+                self.resultado = f"Jugador 2 - Resultado: Jugador1 : {self.contadorIzquierdo}, Jugador2: {self.contadorDerecho}"
             else:
-                self.resultado = "EMPATADOS! - Resultado: Jugador1 : {self.contadorDerecho}, Jugador2: {self.contadorIzquierdo}"
+                self.resultado = f"EMPATADOS! - Resultado: Jugador1 : {self.contadorDerecho}, Jugador2: {self.contadorIzquierdo}"
 
             return self.resultado
         #Finalización de juego por puntaje
@@ -138,28 +138,34 @@ class Menu:
         self.tasa_refresco = pg.time.Clock()
         self.imagenFondo = pg.image.load(FONDO_MENU)
         self.fuente = pg.font.Font(FUENTE1,30)
+        self.sonido = pg.mixer.Sound("pongapp/songs/sonido1.mp3")
 
     def bucle_pantalla(self):
         game_over = True
         while game_over:
+            pg.mixer.Sound.play(self.sonido)
+            pg.mixer.Sound.set_volume(self.sonido,0.03)
             for evento in pg.event.get():
                 if evento.type == pg.QUIT:
                     game_over = False
-                """
-                if evento.type == pg.KEYDOWN:
-                    if evento.key == pg.K_RETURN:
-                        print("ENTER")
-                """
-                teclado = pg.key.get_pressed()
-                if teclado[pg.K_RETURN] == True:
-                    game_over = False
-                    return "Partida"
+               
+            teclado = pg.key.get_pressed()
+            if teclado[pg.K_RETURN] == True:
+                pg.mixer.Sound.stop(self.sonido)
+                game_over = False
+                return "Partida"
+            elif teclado[pg.K_r] == True:
+                pg.mixer.Sound.stop(self.sonido)
+                return "record"
+
 
             self.patalla_principal.blit(self.imagenFondo,(0,0))
             texto_menu = self.fuente.render("Pulsa ENTER para Empezar",True,COLOR_NEGRO)
             self.patalla_principal.blit(texto_menu,(120,ALTO // 2 - 40))
-
+            texto_record = self.fuente.render("Pulsa r para ver records",True,COLOR_BLANCO)
+            self.patalla_principal.blit(texto_record,(120,ALTO // 2 - 20))
             pg.display.flip()
+
         pg.quit()
 
 class Resultado:
@@ -183,3 +189,29 @@ class Resultado:
             pg.display.flip()
 
         pg.quit()
+
+
+
+class Record:
+    def __init__(self):
+        pg.init()
+        self.pantalla_principal = pg.display.set_mode((ANCHO,ALTO))
+        pg.display.set_caption("Mejores Puntajes")
+        self.tasa_refresco = pg.time.Clock()
+        self.fuente_Record = pg.font.Font(FUENTE1,10)
+
+    def bucle_pantalla(self):
+        game_over = True
+        while game_over:
+            for evento in pg.event.get():
+                if evento.type == pg.QUIT:
+                    game_over = False
+
+            self.pantalla_principal.fill(COLOR_BLANCO)
+            texto = self.fuente_Record.render(f"RECORD",True, COLOR_PELOTA)
+            self.pantalla_principal.blit(texto,(ANCHO // 2,ALTO // 2))
+
+            pg.display.flip()
+
+        pg.quit()
+
