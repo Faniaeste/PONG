@@ -1,4 +1,3 @@
-import pygame as pg
 from pongapp.utils import *
 
 class Raqueta:

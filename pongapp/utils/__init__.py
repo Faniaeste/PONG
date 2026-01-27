@@ -1,0 +1,21 @@
+import pygame as pg
+
+pg.init()
+
+ANCHO = 800
+ALTO = 600
+COLOR_PELOTA = (100,200,136)
+COLOR_FONDO = (35,78,198)
+COLOR_BLANCO = (255, 255, 255)
+COLOR_ROSA_PALO = (217, 57, 26)
+COLOR_AZUL = (39, 132, 245)
+COLOR_LILA = (199,98, 199)
+TS = 300
+TIEMPO_JUEGO = 25000
+PISTA_NARAJA = (232, 138, 7)
+PISA_ROJA = (245, 39, 97)
+COLOR_NEGRO = (0, 0, 0)
+FUENTE1 = ("pongapp/fonts/MichromaRegular.ttf")
+FONDO_MENU = ("pongapp/imagen/fondo.png")
+SONIDO_PELOTA = ("pongapp/songs/sonido2.mp3")
+SONIDO_MENU = ("pongapp/songs/sonido1.mp3")
